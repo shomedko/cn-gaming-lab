@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>PG游戏 · 日常查询与对照参考</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f8fa;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #1e2b3a;
+            padding: 0 1rem;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.2rem 0 3rem;
+        }
+
+        /* 顶部导航 */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 0 0.6rem;
+            border-bottom: 1px solid #d0e3e9;
+            margin-bottom: 2.2rem;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: -0.3px;
+            color: #0b6478;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            color: #1f5060;
+            padding: 0.2rem 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #28a0b0;
+            color: #0b5d6e;
+        }
+
+        /* hero 简讯区 */
+        .hero-note {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            border-radius: 28px 28px 28px 8px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 18px rgba(25, 90, 100, 0.06);
+            border-left: 5px solid #34b7c7;
+        }
+
+        .hero-note h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #05424f;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.2px;
+        }
+
+        .hero-note p {
+            font-size: 1.05rem;
+            color: #254d59;
+            max-width: 680px;
+        }
+
+        .hero-note .highlight-link {
+            color: #05839a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #82c8d4;
+        }
+
+        .hero-note .highlight-link:hover {
+            border-bottom-style: solid;
+            color: #033d49;
+        }
+
+        /* 核心介绍 — 对照卡片 */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.6rem;
+            margin-bottom: 2.6rem;
+        }
+
+        @media (min-width: 600px) {
+            .intro-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .intro-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 4px 12px rgba(30, 80, 90, 0.04);
+            border: 1px solid #e2f0f3;
+            transition: 0.15s;
+        }
+
+        .intro-card:hover {
+            border-color: #9fd0db;
+            box-shadow: 0 6px 16px rgba(22, 116, 128, 0.06);
+        }
+
+        .intro-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #0d5f6e;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            border-bottom: 2px solid #9bd3dd;
+            padding-bottom: 0.2rem;
+        }
+
+        .intro-card p {
+            color: #263c45;
+            margin-bottom: 0.4rem;
+            font-size: 0.98rem;
+        }
+
+        .intro-card .tag {
+            display: inline-block;
+            background: #d7eef3;
+            color: #115662;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 0.5rem;
+        }
+
+        /* 三个场景模块 */
+        .scene-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem;
+            margin: 2.2rem 0 2.6rem;
+        }
+
+        .scene-item {
+            flex: 1 1 200px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.6rem 1.4rem;
+            border: 1px solid #daeef3;
+            transition: 0.15s;
+        }
+
+        .scene-item:nth-child(1) {
+            border-top: 4px solid #2fa3b3;
+        }
+        .scene-item:nth-child(2) {
+            border-top: 4px solid #388b9a;
+        }
+        .scene-item:nth-child(3) {
+            border-top: 4px solid #1b7f8f;
+        }
+
+        .scene-item h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #0b4b58;
+            margin-bottom: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .scene-item p {
+            color: #294b56;
+            font-size: 0.93rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .scene-item .meta-note {
+            font-size: 0.8rem;
+            color: #5c818e;
+            border-top: 1px dotted #b7d7df;
+            padding-top: 0.5rem;
+            margin-top: 0.4rem;
+        }
+
+        /* 常见说明 / 紧凑faq */
+        .faq-area {
+            background: #e6f3f7;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 1.8rem;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-area h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #054956;
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 560px) {
+            .faq-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .faq-item {
+            background: #ffffffd9;
+            padding: 0.9rem 1.2rem;
+            border-radius: 16px;
+            border-left: 3px solid #47b1c2;
+        }
+
+        .faq-item strong {
+            display: block;
+            color: #0a4d5b;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            font-size: 0.98rem;
+        }
+
+        .faq-item p {
+            font-size: 0.88rem;
+            color: #2c5460;
+        }
+
+        /* 句子中的链接自然嵌入 */
+        .inline-link {
+            color: #137c90;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px dotted #92cbd7;
+        }
+
+        .inline-link:hover {
+            border-bottom: 1px solid #045e6f;
+            color: #03424f;
+        }
+
+        /* 尾部 */
+        .page-footer {
+            border-top: 1px solid #cfe1e7;
+            padding-top: 1.4rem;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #49727e;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-footer span {
+            opacity: 0.7;
+        }
+
+        /* 移动端友好微调 */
+        @media (max-width: 480px) {
+            .hero-note {
+                padding: 1.5rem 1.2rem;
+            }
+            .hero-note h1 {
+                font-size: 1.6rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 顶部导航 -->
+    <nav class="nav-bar">
+        <span class="nav-logo">PG·对照</span>
+        <div class="nav-links">
+            <a href="#intro">简述</a>
+            <a href="#scenes">场景</a>
+            <a href="#faq">说明</a>
+        </div>
+    </nav>
+
+    <!-- hero 简讯 -->
+    <div class="hero-note">
+        <h1>日常查询 · 对照参考</h1>
+        <p>无论是想快速了解 <a href="https://cn-gaming-pgsoft.com" class="highlight-link">PG游戏</a> 的基本信息，还是在不同资料间做横向对比，这里把零散内容收拢为几张卡片、三个常见场景，方便随手翻看。</p>
+    </div>
+
+    <!-- 核心介绍：两个对照卡片 -->
+    <div class="intro-grid" id="intro">
+        <div class="intro-card">
+            <h2>基本信息对照</h2>
+            <p><strong>名称</strong> · PG游戏（PG Soft）</p>
+            <p><strong>类别</strong> · 数字娱乐 / 休闲内容</p>
+            <p><strong>常见查询</strong> · 界面风格、主题类别、适玩节奏</p>
+            <p><strong>延伸阅读</strong> · 不同版本之间的界面差异、功能调整等，多出现在用户讨论或更新日志中。</p>
+            <span class="tag">参考来源 · 公开资料汇总</span>
+        </div>
+        <div class="intro-card">
+            <h2>日常使用说明</h2>
+            <p>大多时候我们会在手机或平板上打开相关页面，习惯先看游戏列表、筛选条件，再根据个人偏好筛选内容。很多日常查询其实只涉及基础分类和关键词检索。</p>
+            <p>如果你偶尔需要对比不同主题或系列，<a href="https://cn-gaming-pgsoft.com" class="inline-link">PG游戏</a> 页面中通常包含分类标签和简要介绍，非常适合作为起始参考。</p>
+            <span class="tag">快速定位 · 信息陈列</span>
+        </div>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scene-section" id="scenes">
+        <div class="scene-item">
+            <h3>📋 查询对照</h3>
+            <p>在几个候选主题间犹豫时，会把名称、特色、画面风格简单列出来，方便肉眼对比差异。这种场景下更看重信息是否直观。</p>
+            <div class="meta-note">适用：浏览时做笔记、横向比较</div>
+        </div>
+        <div class="scene-item">
+            <h3>📌 延伸阅读</h3>
+            <p>从某一条信息出发，看看关联内容或同类推荐。好比在文章底部看到“你可能还感兴趣”的模块，顺手点开几篇延伸内容。</p>
+            <div class="meta-note">适用：发现新主题、扩展了解</div>
+        </div>
+        <div class="scene-item">
+            <h3>📱 移动端随手查</h3>
+            <p>上下班路上、排队间隙，打开手机快速搜一下某个系列或关键词，不用深入，只要几秒钟就能看到简介和基础参数。</p>
+            <div class="meta-note">适用：碎片时间、轻量浏览</div>
+        </div>
+    </div>
+
+    <!-- 常见说明 faq 摘要 -->
+    <div class="faq-area" id="faq">
+        <h4>常见说明 · 摘要</h4>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <strong>▸ 内容更新频率</strong>
+                <p>不同主题的上线时间有差异，通常以官方公告为准；日常查询时注意区分测试版本与正式版。</p>
+            </div>
+            <div class="faq-item">
+                <strong>▸ 语言与界面</strong>
+                <p>多数页面支持中文，但部分辅助说明或分类标签可能保留英文，熟悉后不影响对照阅读。</p>
+            </div>
+            <div class="faq-item">
+                <strong>▸ 分类逻辑</strong>
+                <p>一般按主题风格、特性或上线时间归类；如果找不到特定条目，可以尝试关键词搜索或筛选。</p>
+            </div>
+            <div class="faq-item">
+                <strong>▸ 参考价值</strong>
+                <p>所有公开信息仅供参考，实际内容以对应页面展示为准。日常查询时建议多看几个来源交叉对照。</p>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.88rem; color: #1f5766;">💡 更多细节可前往 <a href="https://cn-gaming-pgsoft.com" class="inline-link">PG游戏</a> 相关页面浏览，信息通常按类别陈列，方便按需查找。</p>
+    </div>
+
+    <!-- 底部 -->
+    <div class="page-footer">
+        <span>日常查询 · 对照参考页</span>
+        <span>内容整理于公开资料</span>
+    </div>
+</div>
+</body>
+</html>
